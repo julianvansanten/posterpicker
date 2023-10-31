@@ -3,25 +3,13 @@
 
 	export let groups: RecordModel[] = []
 	let votes = { myGroup: -1, first: -1, second: -1, third: -1 }
-
-	const reloadSelect = (event) => {
-		const first = document.getElementById('first') as HTMLSelectElement
-		const second = document.getElementById('second') as HTMLSelectElement
-		const third = document.getElementById('third') as HTMLSelectElement
-		first.value = ''
-		second.value = ''
-		third.value = ''
-		votes.first = -1
-		votes.second = -1
-		votes.third = -1
-	}
 </script>
 
 <div>
 	<div>
 		<label class="label">
 			<span>What is your group?</span>
-			<select class="select" id="mygroup" bind:value={votes.myGroup} on:change={reloadSelect}>
+			<select class="select" id="mygroup" bind:value={votes.myGroup}>
 				{#each groups as group}
 					<option value={group.number}>{group.number}: {group.name}</option>
 				{/each}
