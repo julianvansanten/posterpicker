@@ -2,7 +2,7 @@ import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 
 
-export const config = {
+const config = {
 	extensions: ['.svelte'],
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
@@ -18,3 +18,5 @@ export const config = {
 		adapter: adapter()
 	}
 };
+
+export default config;
