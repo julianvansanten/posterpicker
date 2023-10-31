@@ -1,0 +1,174 @@
+[
+  {
+    "id": "jhd9xae9ht5s05v",
+    "name": "members",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "edqrfbus",
+        "name": "email",
+        "type": "email",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "exceptDomains": null,
+          "onlyDomains": null
+        }
+      },
+      {
+        "system": false,
+        "id": "batgzysx",
+        "name": "group",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": null,
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "_pb_users_auth_",
+    "name": "users",
+    "type": "auth",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "users_name",
+        "name": "name",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "id = @request.auth.id",
+    "viewRule": "id = @request.auth.id",
+    "createRule": null,
+    "updateRule": "id = @request.auth.id",
+    "deleteRule": "id = @request.auth.id",
+    "options": {
+      "allowEmailAuth": true,
+      "allowOAuth2Auth": false,
+      "allowUsernameAuth": false,
+      "exceptEmailDomains": null,
+      "manageRule": null,
+      "minPasswordLength": 8,
+      "onlyEmailDomains": null,
+      "requireEmail": false
+    }
+  },
+  {
+    "id": "dy6v9djy4bpqotb",
+    "name": "submissions",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "d0jsewen",
+        "name": "group",
+        "type": "relation",
+        "required": true,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "mlyaukio",
+        "name": "votes",
+        "type": "relation",
+        "required": true,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": null,
+          "displayFields": null
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": null,
+    "viewRule": null,
+    "createRule": "@request.auth.group ?!= group.number",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "b1qbdh9pkpop5d2",
+    "name": "groups",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "pd6i3sne",
+        "name": "number",
+        "type": "number",
+        "required": true,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": 1,
+          "max": null,
+          "noDecimal": true
+        }
+      },
+      {
+        "system": false,
+        "id": "4ontbfjo",
+        "name": "name",
+        "type": "text",
+        "required": true,
+        "presentable": true,
+        "unique": false,
+        "options": {
+          "min": 5,
+          "max": 50,
+          "pattern": "^[a-zA-Z ,.]*$"
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "@request.auth.id ?= @collection.users.id",
+    "updateRule": "@request.auth.id ?= @collection.users.id",
+    "deleteRule": "@request.auth.id ?= @collection.users.id",
+    "options": {}
+  }
+]

@@ -4,12 +4,14 @@
 import PocketBase from 'pocketbase'
 import type { User } from './types/user'
 
-declare namespace App {
-	interface Locals {
-		user: User,
-		pb: PocketBase
-	}
+declare global {
+	declare namespace App {
+		interface Locals {
+			user: User,
+			pb: PocketBase
+		}
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}
+	}
 }
