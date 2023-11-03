@@ -7,13 +7,17 @@
 	let step: number = 0
 
 	const submitHandler = (event: Event) => {
-		console.log(event)
+		//TODO handle
+	}
+
+	const verifyMembership = (event: Event) => {
+		//TODO handle
 	}
 </script>
 
 <div>
 	<Stepper on:complete="{submitHandler}">
-		<Step>
+		<Step locked="{step <= 0}">
 			<svelte:fragment slot="header">Fill in your details:</svelte:fragment>
 			<label class="label">
 				<span>What is your group?</span>
