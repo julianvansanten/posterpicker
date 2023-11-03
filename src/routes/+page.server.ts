@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ request, locals }) => {
         const groups = await locals.pb.collection('groups').getFullList({
             sort: '+number'
         })
-        return groups
+        return { groups }
     } catch(err) {
         console.error(err)
         throw error(503, 'Unable to reach the server.')
