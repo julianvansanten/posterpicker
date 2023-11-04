@@ -46,16 +46,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		third: groupNumberToId.get(votes.third)
 	}
 
-	try {
-		locals.pb
-			.collection('submissions')
-			.create(submission)
-			.catch((err) => {
-				console.error(err)
-				throw error(503, 'Unable to reach the server whilst trying to submit votes.')
-			})
-	} catch (err) {
+    const result = await locals.pb.send('api/submissions/submit', {
+        method: 'POST',
+        body: JSON.stringify(submission)
+    })
+    .catch((err) => {
         console.error(err)
-    }
-	return json(submission)
+        throw error(503, 'Unable to reach the server whilst trying to submit your votes.')
+    })
+	
+	return json(result)
 }
