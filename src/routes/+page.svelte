@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { ActionData, PageData } from './$types'
 	import PosterForm from './PosterForm.svelte'
 
-	export let data
+	export let data: PageData
 </script>
 
 <div class="space-y-5">
