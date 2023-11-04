@@ -8,7 +8,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		if (!email) throw error(400, 'Invalid request, no email provided.')
 		const group = parseInt(data.group)
 		const pbRes = await locals.pb
-			.send('members/exists', {
+			.send('api/members/exists', {
 				method: 'POST',
 				body: JSON.stringify({ email, group })
 			})
