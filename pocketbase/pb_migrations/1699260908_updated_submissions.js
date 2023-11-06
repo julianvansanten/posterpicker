@@ -3,13 +3,13 @@ migrate((db) => {
   const dao = new Dao(db)
   const collection = dao.findCollectionByNameOrId("dy6v9djy4bpqotb")
 
-  // update
+  // add
   collection.schema.addField(new SchemaField({
     "system": false,
-    "id": "d0jsewen",
-    "name": "group",
+    "id": "aq2ezryt",
+    "name": "first",
     "type": "relation",
-    "required": true,
+    "required": false,
     "presentable": false,
     "unique": false,
     "options": {
@@ -21,20 +21,38 @@ migrate((db) => {
     }
   }))
 
-  // update
+  // add
   collection.schema.addField(new SchemaField({
     "system": false,
-    "id": "mlyaukio",
-    "name": "votes",
+    "id": "dr4r7mug",
+    "name": "second",
     "type": "relation",
-    "required": true,
+    "required": false,
     "presentable": false,
     "unique": false,
     "options": {
       "collectionId": "b1qbdh9pkpop5d2",
       "cascadeDelete": false,
       "minSelect": null,
-      "maxSelect": null,
+      "maxSelect": 1,
+      "displayFields": null
+    }
+  }))
+
+  // add
+  collection.schema.addField(new SchemaField({
+    "system": false,
+    "id": "omnwv2h1",
+    "name": "third",
+    "type": "relation",
+    "required": false,
+    "presentable": false,
+    "unique": false,
+    "options": {
+      "collectionId": "b1qbdh9pkpop5d2",
+      "cascadeDelete": false,
+      "minSelect": null,
+      "maxSelect": 1,
       "displayFields": null
     }
   }))
@@ -44,41 +62,14 @@ migrate((db) => {
   const dao = new Dao(db)
   const collection = dao.findCollectionByNameOrId("dy6v9djy4bpqotb")
 
-  // update
-  collection.schema.addField(new SchemaField({
-    "system": false,
-    "id": "d0jsewen",
-    "name": "group",
-    "type": "relation",
-    "required": false,
-    "presentable": false,
-    "unique": false,
-    "options": {
-      "collectionId": "b1qbdh9pkpop5d2",
-      "cascadeDelete": false,
-      "minSelect": null,
-      "maxSelect": 1,
-      "displayFields": null
-    }
-  }))
+  // remove
+  collection.schema.removeField("aq2ezryt")
 
-  // update
-  collection.schema.addField(new SchemaField({
-    "system": false,
-    "id": "mlyaukio",
-    "name": "votes",
-    "type": "relation",
-    "required": false,
-    "presentable": false,
-    "unique": false,
-    "options": {
-      "collectionId": "b1qbdh9pkpop5d2",
-      "cascadeDelete": false,
-      "minSelect": null,
-      "maxSelect": null,
-      "displayFields": null
-    }
-  }))
+  // remove
+  collection.schema.removeField("dr4r7mug")
+
+  // remove
+  collection.schema.removeField("omnwv2h1")
 
   return dao.saveCollection(collection)
 })

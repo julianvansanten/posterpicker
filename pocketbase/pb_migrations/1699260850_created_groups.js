@@ -2,8 +2,8 @@
 migrate((db) => {
   const collection = new Collection({
     "id": "b1qbdh9pkpop5d2",
-    "created": "2023-10-31 13:53:35.329Z",
-    "updated": "2023-10-31 13:53:35.329Z",
+    "created": "2023-11-06 08:54:10.844Z",
+    "updated": "2023-11-06 08:54:10.844Z",
     "name": "groups",
     "type": "base",
     "system": false,
@@ -11,7 +11,7 @@ migrate((db) => {
       {
         "system": false,
         "id": "pd6i3sne",
-        "name": "field",
+        "name": "number",
         "type": "number",
         "required": true,
         "presentable": false,
@@ -38,11 +38,11 @@ migrate((db) => {
       }
     ],
     "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "@request.auth.id ?= @collection.users.id",
+    "updateRule": "@request.auth.id ?= @collection.users.id",
+    "deleteRule": "@request.auth.id ?= @collection.users.id",
     "options": {}
   });
 

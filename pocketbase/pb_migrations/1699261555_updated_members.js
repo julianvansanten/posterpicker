@@ -3,16 +3,16 @@ migrate((db) => {
   const dao = new Dao(db)
   const collection = dao.findCollectionByNameOrId("jhd9xae9ht5s05v")
 
-  collection.listRule = "@request.data.email:isset = true && @request.data.group:isset = true"
-  collection.viewRule = null
+  collection.indexes = [
+    "CREATE UNIQUE INDEX `idx_QHJEDzL` ON `members` (`email`)"
+  ]
 
   return dao.saveCollection(collection)
 }, (db) => {
   const dao = new Dao(db)
   const collection = dao.findCollectionByNameOrId("jhd9xae9ht5s05v")
 
-  collection.listRule = null
-  collection.viewRule = "@request.data.email:isset = true && @request.data.group:isset = true"
+  collection.indexes = []
 
   return dao.saveCollection(collection)
 })

@@ -1,16 +1,16 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
   const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("jhd9xae9ht5s05v")
+  const collection = dao.findCollectionByNameOrId("dy6v9djy4bpqotb")
 
   collection.indexes = [
-    "CREATE UNIQUE INDEX `idx_eT80u6W` ON `members` (`email`)"
+    "CREATE UNIQUE INDEX `idx_VazHQqt` ON `submissions` (`group`)"
   ]
 
   return dao.saveCollection(collection)
 }, (db) => {
   const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("jhd9xae9ht5s05v")
+  const collection = dao.findCollectionByNameOrId("dy6v9djy4bpqotb")
 
   collection.indexes = []
 

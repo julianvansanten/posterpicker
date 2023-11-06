@@ -6,16 +6,16 @@ migrate((db) => {
   // update
   collection.schema.addField(new SchemaField({
     "system": false,
-    "id": "pd6i3sne",
-    "name": "number",
-    "type": "number",
+    "id": "4ontbfjo",
+    "name": "name",
+    "type": "text",
     "required": true,
-    "presentable": false,
+    "presentable": true,
     "unique": false,
     "options": {
-      "min": 1,
-      "max": null,
-      "noDecimal": true
+      "min": 5,
+      "max": 50,
+      "pattern": "^[a-zA-Z0-9 ,.]*$"
     }
   }))
 
@@ -27,16 +27,16 @@ migrate((db) => {
   // update
   collection.schema.addField(new SchemaField({
     "system": false,
-    "id": "pd6i3sne",
-    "name": "field",
-    "type": "number",
+    "id": "4ontbfjo",
+    "name": "name",
+    "type": "text",
     "required": true,
-    "presentable": false,
+    "presentable": true,
     "unique": false,
     "options": {
-      "min": 1,
-      "max": null,
-      "noDecimal": true
+      "min": 5,
+      "max": 50,
+      "pattern": "^[a-zA-Z ,.]*$"
     }
   }))
 
