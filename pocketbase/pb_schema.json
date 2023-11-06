@@ -1,49 +1,5 @@
 [
   {
-    "id": "jhd9xae9ht5s05v",
-    "name": "members",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "system": false,
-        "id": "edqrfbus",
-        "name": "email",
-        "type": "email",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "exceptDomains": null,
-          "onlyDomains": null
-        }
-      },
-      {
-        "system": false,
-        "id": "batgzysx",
-        "name": "group",
-        "type": "relation",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "collectionId": "b1qbdh9pkpop5d2",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": null
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "_pb_users_auth_",
     "name": "users",
     "type": "auth",
@@ -105,25 +61,105 @@
       },
       {
         "system": false,
-        "id": "mlyaukio",
-        "name": "votes",
+        "id": "aq2ezryt",
+        "name": "first",
         "type": "relation",
-        "required": true,
+        "required": false,
         "presentable": false,
         "unique": false,
         "options": {
           "collectionId": "b1qbdh9pkpop5d2",
           "cascadeDelete": false,
           "minSelect": null,
-          "maxSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "dr4r7mug",
+        "name": "second",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "omnwv2h1",
+        "name": "third",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
           "displayFields": null
         }
       }
     ],
-    "indexes": [],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_VazHQqt` ON `submissions` (`group`)"
+    ],
     "listRule": null,
     "viewRule": null,
     "createRule": "@request.auth.group ?!= group.number",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "jhd9xae9ht5s05v",
+    "name": "members",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "edqrfbus",
+        "name": "email",
+        "type": "email",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "exceptDomains": null,
+          "onlyDomains": null
+        }
+      },
+      {
+        "system": false,
+        "id": "batgzysx",
+        "name": "group",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "b1qbdh9pkpop5d2",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_QHJEDzL` ON `members` (`email`)"
+    ],
+    "listRule": null,
+    "viewRule": null,
+    "createRule": null,
     "updateRule": null,
     "deleteRule": null,
     "options": {}
@@ -159,11 +195,13 @@
         "options": {
           "min": 5,
           "max": 50,
-          "pattern": "^[a-zA-Z ,.]*$"
+          "pattern": "^[a-zA-Z0-9 ,.!?]*$"
         }
       }
     ],
-    "indexes": [],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_hNaQ4cc` ON `groups` (`number`)"
+    ],
     "listRule": "",
     "viewRule": "",
     "createRule": "@request.auth.id ?= @collection.users.id",
