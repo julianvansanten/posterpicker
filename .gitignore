@@ -4,6 +4,8 @@
 *.sublime-project
 *.sublime-workspace
 
+docker-compose.yml
+
 .DS_Store
 node_modules
 /build
