@@ -19,11 +19,8 @@
 	<Toast />
 	<AppShell class="flex min-h-full flex-col">
 		<svelte:fragment slot="header" />
-		<div class="flex-1">
-			<div class="h-full mx-auto flex justify-center items-center my-4">
-				<slot />
-			</div>
-		</div>
+		<slot/>
+
 		<svelte:fragment slot="footer">
 			<div class="overflow-hidden h-6">
 				<Footer />
