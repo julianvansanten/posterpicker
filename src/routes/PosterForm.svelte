@@ -4,13 +4,14 @@
 
 	export let groups: RecordModel[] = []
 	let email = ''
-	let votes = { myGroup: -1, first: -1, second: -1, third: -1 }
+	let myGroup: number = -1
+	let votes = { first: -1, second: -1, third: -1 }
 	let step: number = 0
 
 	const submitHandler = () => {
 		fetch('/api/submit', {
 			method: 'POST',
-			body: JSON.stringify({ email, votes })
+			body: JSON.stringify({ email, "group": myGroup, votes })
 		})
 	}
 
@@ -18,7 +19,7 @@
 		fetch('/api/verify', {
 			method: 'POST',
 			// headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, group: votes.myGroup })
+			body: JSON.stringify({ email, group: myGroup })
 		})
 			.then((response) =>
 				response
@@ -50,7 +51,7 @@
 					class="select"
 					id="mygroup"
 					name="group"
-					bind:value={votes.myGroup}
+					bind:value={myGroup}
 					on:change={verifyMembership}
 				>
 					{#each groups as group}
@@ -77,7 +78,7 @@
 				<select class="select" id="first" bind:value={votes.first}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
-						{#if group.number != votes.myGroup}
+						{#if group.number != myGroup}
 							<option value={group.number}>{group.number}: {group.name}</option>
 						{/if}
 					{/each}
@@ -91,7 +92,7 @@
 				<select class="select" id="second" bind:value={votes.second}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
-						{#if group.number != votes.myGroup && group.number != votes.first}
+						{#if group.number != myGroup && group.number != votes.first}
 							<option value={group.number}>{group.number}: {group.name}</option>
 						{/if}
 					{/each}
@@ -105,7 +106,7 @@
 				<select class="select" id="third" bind:value={votes.third}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
-						{#if group.number != votes.myGroup && group.number != votes.first && group.number != votes.second}
+						{#if group.number != myGroup && group.number != votes.first && group.number != votes.second}
 							<option value={group.number}>{group.number}: {group.name}</option>
 						{/if}
 					{/each}

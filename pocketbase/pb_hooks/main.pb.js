@@ -4,16 +4,14 @@
  * Add new route that allows checking if a member exists with the right group number
  */
 routerAdd('POST', '/api/members/exists', (e) => {
-    // const data = $apis.requestInfo(e).data
-    // console.log(data.title)
     const data = new DynamicModel({
         group: 0,
         email: "",
     })
     e.bind(data)
     if (data.group <= 0 || data.email === "") {
+        console.info(`Received invalid request, group number or email is empty`)
         throw new BadRequestError("Invalid email and/or group number")
-        // return e.json(400, { error: "Invalid request" })
     }
     const record = $app.dao().findRecordsByFilter(
         'members',
@@ -23,6 +21,7 @@ routerAdd('POST', '/api/members/exists', (e) => {
         0,
         { email: data.email }
     )
+    // console.info(`${data.email} is ${record.length > 0 ? "" : "not "}a member of group ${data.group}`)
     return e.json(200, { exists: record.length > 0 })
 })
 
@@ -42,12 +41,15 @@ routerAdd('POST', '/api/submissions/submit', (e) => {
     e.bind(data)
 
     if (data.group === "" || data.first === "" || data.second === "" || data.third === "") {
+        console.info(`Received invalid request, one or more fields are empty`)
         throw new BadRequestError("Invalid request")
     }
     if (data.first === data.second || data.first === data.third || data.second === data.third) {
+        console.info(`Received invalid request, duplicate group numbers`)
         throw new BadRequestError("Duplicate group numbers")
     }
     if (data.group === data.first || data.group === data.second || data.group === data.third) {
+        console.info(`Received invalid request, vote was for own group`)
         throw new BadRequestError("Cannot vote for yourself")
     }
 
@@ -60,8 +62,6 @@ routerAdd('POST', '/api/submissions/submit', (e) => {
         {group: data.group}
     )
 
-    console.log(JSON.stringify(records))
-
     if (records.length > 0) {
         // Submission already exists, edit it
         const submission = $app.dao().findRecordById("submissions", records[0].id)
@@ -69,6 +69,7 @@ routerAdd('POST', '/api/submissions/submit', (e) => {
         submission.set("second", data.second)
         submission.set("third", data.third)
         $app.dao().saveRecord(submission)
+        console.info(`Submission updated for group ${data.group}`)
         return e.json(200, { message: "Submission updated" })
     } else {
         const collection = $app.dao().findCollectionByNameOrId("submissions")
@@ -79,6 +80,7 @@ routerAdd('POST', '/api/submissions/submit', (e) => {
             "third": data.third
         })
         $app.dao().saveRecord(submission)
+        console.info(`Submission created for group ${data.group}`)
         return e.json(200, { message: "Submission created" })
     }
 })
