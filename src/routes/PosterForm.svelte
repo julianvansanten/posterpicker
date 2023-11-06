@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Step, Stepper } from '@skeletonlabs/skeleton'
+	import { Step, Stepper, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton'
 	import type { RecordModel } from 'pocketbase'
 
 	export let groups: RecordModel[] = []
@@ -7,11 +7,37 @@
 	let myGroup: number = -1
 	let votes = { first: -1, second: -1, third: -1 }
 	let step: number = 0
+	const toastStore = getToastStore()
 
-	const submitHandler = () => {
+	const submitHandler = async () => {
 		fetch('/api/submit', {
 			method: 'POST',
-			body: JSON.stringify({ email, "group": myGroup, votes })
+			body: JSON.stringify({ email, group: myGroup, votes })
+		}).then((resp) => {
+			if (resp.ok) {
+				resp
+					.json()
+					.then((resp) => {
+						const t: ToastSettings = {
+							message: resp.message,
+							timeout: 5000,
+							background: 'variant-filled-success'
+						}
+						toastStore.trigger(t)
+					})
+					.catch((err) => {
+						console.error(err)
+					})
+			} else {
+				resp.json().then((resp) => {
+					const t: ToastSettings = {
+						message: `An occurred during your submission: ${resp.message}`,
+						timeout: 5000,
+						background: 'variant-filled-error'
+					}
+					toastStore.trigger(t)
+				})
+			}
 		})
 	}
 
@@ -38,6 +64,32 @@
 			.catch((error) => {
 				console.error('Server error:', error)
 			})
+	}
+
+	const getGroupName = (groupNumber: number) => {
+		for (let i = 0; i < groups.length; i++) {
+			if (groups[i].number == groupNumber) {
+				return groups[i].name
+			}
+		}
+		return ''
+	}
+
+	const updateStep = () => {
+		console.log(votes)
+		if (votes.first == -1) {
+			step = 1
+			return
+		}
+		if (votes.second == -1 || votes.first == votes.second) {
+			step = 2
+			return
+		}
+		if (votes.third == -1 || votes.second == votes.third || votes.first == votes.third) {
+			step = 3
+			return
+		}
+		return (step = 4)
 	}
 </script>
 
@@ -71,11 +123,11 @@
 				</label>
 			</label>
 		</Step>
-		<Step>
+		<Step locked={step <= 1}>
 			<svelte:fragment slot="header">Vote for your favorite posters!</svelte:fragment>
 			<label class="label">
 				<span>Which group do you want to vote first?</span>
-				<select class="select" id="first" bind:value={votes.first}>
+				<select class="select" id="first" bind:value={votes.first} on:change={updateStep}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
 						{#if group.number != myGroup}
@@ -85,11 +137,11 @@
 				</select>
 			</label>
 		</Step>
-		<Step>
+		<Step locked={step <= 2}>
 			<svelte:fragment slot="header">Vote for your favorite posters!</svelte:fragment>
 			<label class="label">
 				<span>Which group do you want to vote second?</span>
-				<select class="select" id="second" bind:value={votes.second}>
+				<select class="select" id="second" bind:value={votes.second} on:change={updateStep}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
 						{#if group.number != myGroup && group.number != votes.first}
@@ -99,11 +151,11 @@
 				</select>
 			</label>
 		</Step>
-		<Step>
+		<Step locked={step <= 3}>
 			<svelte:fragment slot="header">Vote for your favorite posters!</svelte:fragment>
 			<label class="label">
 				<span>Which group do you want to vote third?</span>
-				<select class="select" id="third" bind:value={votes.third}>
+				<select class="select" id="third" bind:value={votes.third} on:change={updateStep}>
 					<option value="" disabled selected hidden>Select a different group</option>
 					{#each groups as group}
 						{#if group.number != myGroup && group.number != votes.first && group.number != votes.second}
@@ -112,6 +164,22 @@
 					{/each}
 				</select>
 			</label>
+		</Step>
+		<Step locked={step <= 3}>
+			<svelte:fragment slot="header">Confirm your submission</svelte:fragment>
+			<div>
+				<p>My group:</p>
+				<blockquote class="blockquote">{getGroupName(myGroup)}</blockquote>
+				<p>My email:</p>
+				<blockquote class="blockquote">{email}</blockquote>
+				<p>My votes:</p>
+				<p>First:</p>
+				<blockquote class="blockquote">{getGroupName(votes.first)}</blockquote>
+				<p>Second:</p>
+				<blockquote class="blockquote">{getGroupName(votes.second)}</blockquote>
+				<p>Third:</p>
+				<blockquote class="blockquote">{getGroupName(votes.third)}</blockquote>
+			</div>
 		</Step>
 	</Stepper>
 </div>
