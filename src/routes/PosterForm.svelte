@@ -41,10 +41,12 @@
 		})
 	}
 
-	const verifyMembership = () => {
+	const verifyMembership = async () => {
+		if (email == '' || myGroup == -1) {
+			return
+		}
 		fetch('/api/verify', {
 			method: 'POST',
-			// headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, group: myGroup })
 		})
 			.then((response) =>
@@ -76,7 +78,6 @@
 	}
 
 	const updateStep = () => {
-		console.log(votes)
 		if (votes.first == -1) {
 			step = 1
 			return
