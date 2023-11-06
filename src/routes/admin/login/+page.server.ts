@@ -9,10 +9,10 @@ export const actions: Actions = {
     login: async ({ locals, request }) => {
         if (locals.pb.authStore.isValid) throw redirect(303, "/admin")
         const data = await request.formData()
-        const email = data.get('email')
-        const password = data.get('password')
-        const adminData = await locals.pb.collection('users').authWithPassword(email, password)
-        if (!adminData) throw fail(400, { message: "Invalid credentials" })
+        const email = data.get('email') as string
+        const password = data.get('password') as string
+        const login = await locals.pb.collection('users').authWithPassword(email, password)
+        if (!login) throw fail(400, { message: "Invalid credentials" })
         throw redirect(303, "/admin")
     }
 }
