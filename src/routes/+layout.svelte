@@ -15,16 +15,16 @@
 <svelte:head
 	>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head
 >
-<div class="main h-screen w-screen">
-	<Toast />
-	<AppShell class="flex min-h-full flex-col">
-		<svelte:fragment slot="header" />
-		<slot/>
+<Toast />
+<AppShell class="main h-screen w-screen flex flex-col overflow-hidden">
+	<svelte:fragment slot="header" />
+	<div class="overflow-y-scroll">
+		<slot />
+	</div>
 
-		<svelte:fragment slot="footer">
-			<div class="overflow-hidden h-6">
-				<Footer />
-			</div>
-		</svelte:fragment>
-	</AppShell>
-</div>
+	<svelte:fragment slot="footer">
+		<div class="overflow-hidden h-6">
+			<Footer />
+		</div>
+	</svelte:fragment>
+</AppShell>
