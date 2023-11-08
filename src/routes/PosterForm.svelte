@@ -41,10 +41,12 @@
 		})
 	}
 
-	const verifyMembership = () => {
+	const verifyMembership = async () => {
+		if (email == '' || myGroup == -1) {
+			return
+		}
 		fetch('/api/verify', {
 			method: 'POST',
-			// headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, group: myGroup })
 		})
 			.then((response) =>
@@ -76,7 +78,6 @@
 	}
 
 	const updateStep = () => {
-		console.log(votes)
 		if (votes.first == -1) {
 			step = 1
 			return
@@ -98,6 +99,17 @@
 		<Step locked={step <= 0}>
 			<svelte:fragment slot="header">Fill in your details:</svelte:fragment>
 			<label class="label">
+				<span>What is your email?</span>
+				<input
+					class="input"
+					type="email"
+					name="email"
+					placeholder="@(student.)utwente.nl"
+					bind:value={email}
+					on:change={verifyMembership}
+				/>
+			</label>
+			<label class="label">
 				<span>What is your group?</span>
 				<select
 					class="select"
@@ -110,17 +122,6 @@
 						<option value={group.number}>{group.number}: {group.name}</option>
 					{/each}
 				</select>
-				<label class="label">
-					<span>What is your email?</span>
-					<input
-						class="input"
-						type="email"
-						name="email"
-						placeholder="@(student.)utwente.nl"
-						bind:value={email}
-						on:change={verifyMembership}
-					/>
-				</label>
 			</label>
 		</Step>
 		<Step locked={step <= 1}>

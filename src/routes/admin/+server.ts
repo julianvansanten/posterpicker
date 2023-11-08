@@ -6,7 +6,5 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
     const {token, record} = await locals.pb.collection('users').authWithPassword(email, password)
 
-    locals.user ={email, token}
-
     return new Response(JSON.stringify({token, record}))
 }
