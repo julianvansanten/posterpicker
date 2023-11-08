@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex-1">
-	<div class="h-full mx-auto flex justify-center items-center my-4">
+	<div class="h-full w-3/4 lg:w-1/2 mx-auto flex justify-center items-center my-4">
 		<div class="space-y-5">
 			<div>
 				<h1 class="h1 text-center">Choose your favorite posters!</h1>

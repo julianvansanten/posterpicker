@@ -12,19 +12,15 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow })
 </script>
 
-<svelte:head
-	>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head
->
+<svelte:head>
+	{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+	<title>TCS Poster Picker</title>
+</svelte:head>
 <Toast />
 <AppShell class="main h-screen w-screen flex flex-col overflow-hidden">
 	<svelte:fragment slot="header" />
-	<div class="overflow-y-scroll">
-		<slot />
-	</div>
-
+	<slot />
 	<svelte:fragment slot="footer">
-		<div class="overflow-hidden h-6">
-			<Footer />
-		</div>
+		<Footer />
 	</svelte:fragment>
 </AppShell>
