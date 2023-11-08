@@ -4,6 +4,7 @@
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom'
 	import { AppShell, Toast, storePopup } from '@skeletonlabs/skeleton'
+
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { autoModeWatcher } from '@skeletonlabs/skeleton'
 	import Footer from './Footer.svelte'
@@ -24,3 +25,4 @@
 		<Footer />
 	</svelte:fragment>
 </AppShell>
+
