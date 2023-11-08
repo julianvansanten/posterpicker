@@ -6,7 +6,8 @@
 	export let data: PageData
 </script>
 
-<div>
+<div class="flex flex-col justify-center">
+    <h1>Add students to a group</h1>
 	<form method="POST">
 		<label class="label">
 			<span>Group nr</span>
