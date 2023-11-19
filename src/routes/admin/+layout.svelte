@@ -8,7 +8,7 @@
 		<svelte:fragment slot="lead"><a href="/admin"><Icon icon="ep:back" class="h-6 w-6" /></a></svelte:fragment>
 		<h1>Poster Picker Admin</h1>
 		<svelte:fragment slot="trail">
-			<a href="/admin/groups"><button class="btn variant-ghost">Add Groups</button></a>
+			<a href="/admin/groups"><button class="btn variant-ghost">Manage Groups</button></a>
 			<button class="btn variant-filled">Logout</button>
 		</svelte:fragment>
 	</AppBar>

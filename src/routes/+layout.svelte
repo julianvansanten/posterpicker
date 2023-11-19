@@ -3,7 +3,7 @@
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom'
-	import { AppShell, Toast, storePopup } from '@skeletonlabs/skeleton'
+	import { AppShell, Modal, Toast, storePopup } from '@skeletonlabs/skeleton'
 
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { autoModeWatcher } from '@skeletonlabs/skeleton'
@@ -18,6 +18,7 @@
 	<title>TCS Poster Picker</title>
 </svelte:head>
 <Toast />
+<Modal />
 <AppShell class="main h-screen w-screen flex flex-col overflow-hidden">
 	<svelte:fragment slot="header" />
 	<slot />
