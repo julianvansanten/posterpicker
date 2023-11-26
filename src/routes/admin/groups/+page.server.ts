@@ -1,5 +1,8 @@
 import { redirect, type Actions } from '@sveltejs/kit'
 import type { PageServerLoad } from '../$types'
+import type { RecordModel } from 'pocketbase'
+import { createGroup } from '$lib/types/group'
+import type { Group } from '../../../types/group'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.pb.authStore.isValid) throw redirect(304, '/admin/login')
@@ -8,8 +11,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 		sort: 'number'
 	})
 
+	const results: Group[] = pbGroups.map((pbGroup: RecordModel) => createGroup(pbGroup))
+
 	return {
-		results: pbGroups
+		results: results
 	}
 }
 
