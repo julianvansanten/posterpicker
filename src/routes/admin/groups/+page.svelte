@@ -3,6 +3,7 @@
 	import Icon from '@iconify/svelte'
 	import editIcon from '@iconify/icons-mdi/edit'
 	import removeIcon from '@iconify/icons-mdi/remove'
+	import clipboardRemoveOutline from '@iconify/icons-mdi/clipboard-remove-outline'
 	import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton'
 	import formatListNumbered from '@iconify/icons-mdi/format-list-numbered'
 	import badgeAccountAlert from '@iconify/icons-mdi/badge-account-alert'
@@ -18,7 +19,7 @@
 		const modal: ModalSettings = {
 			type: 'confirm',
 			title: 'Remove group',
-			body: `Are you sure you want to remove group ${group.number} (${group.name})? This can only be done if there are no more submissions`,
+			body: `Are you sure you want to remove group ${group.number} (${group.name})? This can only be done if there are no more submissions.`,
 			response: (r: boolean) =>
 				console.log(`Following group will${r ? '' : ' not'} be removed`, group)
 		}
