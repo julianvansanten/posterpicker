@@ -1,11 +1,23 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte'
 	import { AppBar } from '@skeletonlabs/skeleton'
+
+	import { goto, afterNavigate } from '$app/navigation'
+	import { base } from '$app/paths'
+
+	let previousPage: string = base
+
+	afterNavigate(({ from }) => {
+		previousPage = from?.url.pathname || previousPage
+	})
 </script>
 
 <div class="w-full h-full overflow-hidden">
 	<AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
-		<svelte:fragment slot="lead"><a href="/admin"><Icon icon="ep:back" class="h-6 w-6" /></a></svelte:fragment>
+		<svelte:fragment slot="lead"
+			><button on:click={() => goto(previousPage)}><Icon icon="ep:back" class="h-6 w-6" /></button
+			></svelte:fragment
+		>
 		<h1>Poster Picker Admin</h1>
 		<svelte:fragment slot="trail">
 			<a href="/admin/groups"><button class="btn variant-ghost">Manage Groups</button></a>
