@@ -2,8 +2,8 @@
 migrate((db) => {
   const collection = new Collection({
     "id": "jhd9xae9ht5s05v",
-    "created": "2023-11-06 08:54:10.842Z",
-    "updated": "2023-11-06 08:54:10.842Z",
+    "created": "2024-04-04 12:45:11.782Z",
+    "updated": "2024-04-04 12:45:11.782Z",
     "name": "members",
     "type": "base",
     "system": false,
@@ -38,7 +38,9 @@ migrate((db) => {
         }
       }
     ],
-    "indexes": [],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_QHJEDzL` ON `members` (`email`)"
+    ],
     "listRule": null,
     "viewRule": null,
     "createRule": null,
