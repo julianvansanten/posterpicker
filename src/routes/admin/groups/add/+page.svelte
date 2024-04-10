@@ -6,8 +6,6 @@
 	import type { PageData } from './$types'
 
 	let groupExists = false
-
-	export let data: PageData
 </script>
 
 <div class="flex flex-col space-y-4 justify-center">
