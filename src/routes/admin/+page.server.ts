@@ -1,4 +1,4 @@
-import { redirect, type Actions } from '@sveltejs/kit'
+import { redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -12,6 +12,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 			sort: '-created'
 		})
 
+    const pbGroups = await locals.pb
+        .collection('groups')
+        .getFullList({
+            sort: 'number'
+        })
+
     const results = new Map<string, number>()
 
 
@@ -24,14 +30,15 @@ export const load: PageServerLoad = async ({ locals }) => {
         results.set(submission.third, third + 1)
     })
 
-    const pbGroups = await locals.pb
-        .collection('groups')
-        .getFullList({
-            sort: 'number'
-        })
+    const voteList: string[] = []
+
+    pbSubmissions.forEach(submission => {
+        voteList.push(submission.group)
+    })
 
     pbGroups.forEach(group => {
         group.points = results.get(group.id) || 0
+        group.voted = voteList.includes(group.id)
     })
 
     return {
