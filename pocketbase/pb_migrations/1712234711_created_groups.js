@@ -2,8 +2,8 @@
 migrate((db) => {
   const collection = new Collection({
     "id": "b1qbdh9pkpop5d2",
-    "created": "2023-11-06 08:54:10.844Z",
-    "updated": "2023-11-06 08:54:10.844Z",
+    "created": "2024-04-04 12:45:11.782Z",
+    "updated": "2024-04-04 12:45:11.782Z",
     "name": "groups",
     "type": "base",
     "system": false,
@@ -33,11 +33,13 @@ migrate((db) => {
         "options": {
           "min": 5,
           "max": 50,
-          "pattern": "^[a-zA-Z ,.]*$"
+          "pattern": "^[a-zA-Z0-9 ,.!?]*$"
         }
       }
     ],
-    "indexes": [],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_hNaQ4cc` ON `groups` (`number`)"
+    ],
     "listRule": "",
     "viewRule": "",
     "createRule": "@request.auth.id ?= @collection.users.id",

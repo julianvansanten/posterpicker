@@ -32,6 +32,7 @@ migrate((db) => {
     "manageRule": null,
     "minPasswordLength": 8,
     "onlyEmailDomains": null,
+    "onlyVerified": false,
     "requireEmail": false
   }
 
@@ -45,8 +46,6 @@ migrate((db) => {
     "presentable": false,
     "unique": false,
     "options": {
-      "maxSelect": 1,
-      "maxSize": 5242880,
       "mimeTypes": [
         "image/jpeg",
         "image/png",
@@ -55,6 +54,8 @@ migrate((db) => {
         "image/webp"
       ],
       "thumbs": null,
+      "maxSelect": 1,
+      "maxSize": 5242880,
       "protected": false
     }
   }))
