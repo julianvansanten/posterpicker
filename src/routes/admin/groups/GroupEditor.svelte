@@ -13,8 +13,6 @@
 			type: 'confirm',
 			title: 'Remove group',
 			body: `Are you sure you want to remove group ${group.number} (${group.name})? This can only be done if there are no more submissions.`,
-			response: (r: boolean) =>
-				console.log(`Following group will${r ? '' : ' not'} be removed`, group)
 		}
 		modalStore.trigger(modal)
 		return null
