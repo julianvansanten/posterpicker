@@ -1,31 +1,19 @@
 <script lang="ts">
-	import type { PageData } from '../$types'
+	import type { PageData } from './$types'
 
-	let groupnr: string
+	import GroupEditor from './GroupEditor.svelte'
 
 	export let data: PageData
 </script>
 
-<div class="flex flex-col justify-center">
-    <h1>Add students to a group</h1>
-	<form method="POST">
-		<label class="label">
-			<span>Group nr</span>
-			<select class="select" id="mygroup" name="group" bind:value={groupnr}>
-				{#each data.results as group}
-					<option value={group.id}>{group.number}: {group.name}</option>
-				{/each}
-			</select>
-		</label>
-		<label class="label">
-			<span>Enter emails to add to group</span>
-			<textarea
-				class="textarea"
-				rows="3"
-				placeholder="...@student.utwente.nl,...@student.utwente.nl,..."
-                name="emails"
-			/>
-		</label>
-        <button class="btn variant-filled">Submit</button>
-	</form>
+<div class="flex flex-col space-y-4 justify-center">
+	<div class="flex flex-col space-y-2" id="editgroups">
+		<h2>Edit existing groups</h2>
+		{#if data.results.length > 0}
+			<GroupEditor groups={data.results} />
+		{:else}
+			<p>There are no groups yet!</p>
+		{/if}
+		<a href="/admin/groups/add"><button type="button" class="btn variant-filled">Add new groups</button></a>
+	</div>
 </div>
