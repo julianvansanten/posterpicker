@@ -20,7 +20,7 @@ export const actions: Actions = {
 		const data = await request.formData()
 		const name = (data.get('name') as string) || ''
 		if (!name || name.length < 5) return {success: false, message: 'Name must be at least 5 characters'}
-		if (name.length > 50) return {success: false, message: 'Name must be less than 50 characters'}
+		if (name.length > 100) return {success: false, message: 'Name must be less than 100 characters'}
 		const res = await locals.pb
 			.collection('groups')
 			.update(group.id, { name: name }, { requestKey: null })
