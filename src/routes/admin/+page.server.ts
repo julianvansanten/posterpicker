@@ -4,8 +4,6 @@ import type { PageServerLoad } from './$types'
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.pb.authStore.isValid) throw redirect(303, '/admin/login')
 
-    // return {message: "hello"}
-
 	const pbSubmissions = await locals.pb
 		.collection('submissions')
 		.getFullList({
@@ -19,7 +17,6 @@ export const load: PageServerLoad = async ({ locals }) => {
         })
 
     const results = new Map<string, number>()
-
 
     pbSubmissions.forEach(submission => {
         const first: number = results.get(submission.first) || 0
