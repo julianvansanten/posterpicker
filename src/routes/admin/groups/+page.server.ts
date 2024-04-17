@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit'
-import type { PageServerLoad } from '../$types'
+import type { PageServerLoad } from './$types'
 import type { RecordModel } from 'pocketbase'
 import { createGroup } from '$lib/types/group'
 import type { Group } from '$lib/types/group'
